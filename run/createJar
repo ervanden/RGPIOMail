@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# to be replaced
+
 cd /home/pi/git/SendGMail
 
 echo Compiling java files...
