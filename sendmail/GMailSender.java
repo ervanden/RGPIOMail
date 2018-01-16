@@ -30,7 +30,15 @@ class GMailSender {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
             DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
-            readGmailAuthorizationKeyFile("C:\\Users\\erikv\\Documents\\RGPIO\\GmailAuthorizationKeys.txt");
+
+            String keyFile = null;
+            if (System.getProperty("file.separator").equals("/")) {
+                keyFile = "/home/pi/RGPIO/GmailAuthorizationKeys.txt";
+            } else {
+                keyFile = "C:\\Users\\erikv\\Documents\\RGPIO\\GmailAuthorizationKeys.txt";
+            }
+
+            readGmailAuthorizationKeyFile(keyFile);
         } catch (Throwable t) {
             t.printStackTrace();
             System.exit(1);
@@ -108,10 +116,10 @@ class GMailSender {
         GoogleAuthorizationCodeFlow flow
                 = new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY,
- //                       GmailAuthorizationKeys.clientId,
- //                       GmailAuthorizationKeys.clientSecret,
-                                                "853358937100-etg296s8tvulf64pdin6l7gq4ih7o0os.apps.googleusercontent.com",
-                                                "Zp8QvGgFHyR2iU8clI99Cw5G",
+                        //                       GmailAuthorizationKeys.clientId,
+                        //                       GmailAuthorizationKeys.clientSecret,
+                        "853358937100-etg296s8tvulf64pdin6l7gq4ih7o0os.apps.googleusercontent.com",
+                        "Zp8QvGgFHyR2iU8clI99Cw5G",
                         SCOPES)
                 .setDataStoreFactory(DATA_STORE_FACTORY)
                 .setAccessType("offline")
@@ -169,8 +177,8 @@ class GMailSender {
             String userId,
             MimeMessage emailContent)
             throws MessagingException, IOException {
-        
-        Gmail service =getGmailService();
+
+        Gmail service = getGmailService();
         Message message = createMessageWithEmail(emailContent);
         message = service.users().messages().send(userId, message).execute();
 
