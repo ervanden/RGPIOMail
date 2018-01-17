@@ -1,8 +1,8 @@
-package sendmail;
+package rgpiomail;
 
 import java.io.IOException;
 
-public class GMailSenderMain {
+public class RGPIOMail {
 
     public static void main(String[] args) throws IOException {
 
