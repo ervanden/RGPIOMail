@@ -1,5 +1,0 @@
-#! /bin/bash
-
-
-java -cp /home/pi/git/SendGMail/SendGMail.jar:/home/pi/git/SendGMail/lib/'*' sendmail/GMailSenderMain to="$1" subject="$2" content="$3"
-
